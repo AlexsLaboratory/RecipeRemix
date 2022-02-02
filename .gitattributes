@@ -221,6 +221,7 @@ package-lock.json text -diff
 browserslist      text
 Makefile          text
 makefile          text
+requirements.txt  text working-tree-encoding=UTF-16
 
 # Heroku
 Procfile          text
