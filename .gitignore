@@ -148,6 +148,7 @@ cython_debug/
 # Custom
 css/
 node_modules
+static/
 
 # PyCharm
 #  JetBrains specific template is maintainted in a separate JetBrains.gitignore that can
