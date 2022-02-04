@@ -24,3 +24,4 @@ A web application that allows users to input diet restrictions, food preferences
 
 #### Nodejs Setup
 1. From within the repository run `npm install` and run `npm install --global gulp-cli`
+2. Run `gulp watch`
