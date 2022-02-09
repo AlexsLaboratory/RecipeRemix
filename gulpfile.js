@@ -8,7 +8,7 @@ const rename = require("gulp-rename");
 const sourceMaps = require("gulp-sourcemaps");
 const terser = require("gulp-terser");
 
-function buildStyles() {
+async function buildStyles() {
   return gulp.src('./app/scss/bootstrap.scss')
       .pipe(sass().on('error', sass.logError))
       .pipe(sourceMaps.init())
