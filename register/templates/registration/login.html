@@ -1,16 +1,31 @@
 
+<style>
+body
+{
+background-image:url("https://images.pexels.com/photos/54455/cook-food-kitchen-eat-54455.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260");
+background-position: center;
+}
 
-{% block title %}
-Login Here
-{% endblock %}
+</style>
+<br><br><br><br><br><br>
+<h1 style="font-family:Georgia,serif;color:white;text-align:center;">Login Here</h1>
 
-{% load crispy_forms_tags %}
+<form action="action_page.php" method="post">
+  <div class="container" style="font-family:Georgia,serif;color:white;text-align:center;">
+    <label for="username"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="username" required>
+    <br><br>
+    <label for="password"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="password" required>
+    <br><br>
+    <button type="submit"
+            style="height:30px;
+            width:100px;
+            background:white;
+            color:orange;
+            font-family:Georgia,serif;
+            font-size:15px;">Login</button>
+  </div>
+  <p style="font-family:Georgia,serif;color:white;text-align:center;"> Don't have an account? <a href="/register">Sign Up</a></p>
 
-{% block content %}
-     <form method="post" class="from-group">
-	{% csrf_token %}
-	{{form|crispy}}
-	<p>Don't have an account? Create one <a href="/register">here</a></p>
-	<button type="submit" class="btn btn-success">Login</button>	
-    </form>
-{% endblock %}
+</form>

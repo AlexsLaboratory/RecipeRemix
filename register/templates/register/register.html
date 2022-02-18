@@ -1,38 +1,35 @@
 <style>
+body
+{
+background-image:url("https://images.pexels.com/photos/54455/cook-food-kitchen-eat-54455.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260");
+background-position: center;
+}
 
 </style>
+<br><br><br><br><br><br>
+<h1 style="font-family:Georgia,serif;color:white;text-align:center;">Signup Here</h1>
+<form action="action_page.php" style="font-family:Georgia,serif;color:white;text-align:center;">
+  <div class="container">
 
-<div class="form_wrapper">
-  <div class="form_container">
-    <div class="title_container">
-      <h2>Registration Form</h2>
-    </div>
-    <div class="row clearfix">
-      <div class="">
-        <form>
-          <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
-            <input type="email" name="email" placeholder="Email" required />
-          </div>
-			<br>
-          <div class="input_field"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
-            <input type="password" name="password" placeholder="Password" required />
-          </div>
-          	<br>
-          <div class="input_field"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
-            <input type="password" name="password" placeholder="Re-type Password" required />
-          </div>
-          	<br>
-          <div class="row clearfix">
-            <div class="col_half">
-              <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
-                <input type="text" name="name" placeholder="Name" />
-              </div>
-            </div>
-            	<br>
-            <div class="col_half">
-          <input class="button" type="submit" value="Register" />
-        </form>
-      </div>
-    </div>
+    <label for="email"><b>Email</b></label>
+    <input type="text" placeholder="Enter Email" name="email" required>
+<br><br>
+    <label for="username"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="username" required>
+<br><br>
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="psw" required>
+<br><br>
+    <label for="psw-repeat"><b>Repeat Password</b></label>
+    <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
+<br><br>
+    <button type="submit" class="signupbtn"
+    style="height:30px;
+            width:100px;
+            background:white;
+            color:orange;
+            font-family:Georgia,serif;
+            font-size:15px;">Sign Up</button>
   </div>
-</div>
+  <p style="font-family:Georgia,serif;color:white;text-align:center;"> Already have an account? <a href="/login">Login</a></p>
+</form>
