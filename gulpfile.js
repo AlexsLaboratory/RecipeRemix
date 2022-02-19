@@ -9,7 +9,7 @@ const sourceMaps = require("gulp-sourcemaps");
 const terser = require("gulp-terser");
 
 async function buildStyles() {
-  return gulp.src('./app/scss/bootstrap.scss')
+  return gulp.src(['./app/scss/bootstrap.scss', './app/scss/bootstrap-grid.scss'])
       .pipe(sass().on('error', sass.logError))
       .pipe(sourceMaps.init())
       .pipe(sass({
