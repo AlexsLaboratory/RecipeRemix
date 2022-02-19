@@ -32,19 +32,21 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# Application definition
-
 INSTALLED_APPS = [
+	# My apps
+	'app.apps.AppConfig',
+	'account',
+
+	# Django apps
 	'django.contrib.admin',
 	'django.contrib.auth',
 	'django.contrib.contenttypes',
 	'django.contrib.sessions',
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
-	'app.apps.AppConfig',
-	'register.apps.RegisterConfig',
-	'crispy_forms',
 ]
+# Application definition
+
 
 MIDDLEWARE = [
 	'django.middleware.security.SecurityMiddleware',
@@ -73,6 +75,8 @@ TEMPLATES = [
 		},
 	},
 ]
+
+AUTH_USER_MODEL = 'account.Account'
 
 WSGI_APPLICATION = 'RecipeRemix.wsgi.application'
 
@@ -132,7 +136,6 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'

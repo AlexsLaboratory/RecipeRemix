@@ -1,11 +1,11 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import UserCreationForm
 
-User = get_user_model()
+Account = get_user_model()
 
 
-class RegisterForm(UserCreationForm):
+class RegistrationForm(UserCreationForm):
 	username = forms.CharField(
 		label="Username",
 		widget=forms.TextInput(
@@ -14,6 +14,7 @@ class RegisterForm(UserCreationForm):
 	)
 	email = forms.EmailField(
 		label="Email",
+		max_length=60,
 		widget=forms.EmailInput(
 			attrs={"class": "form-control", "name": "email"}
 		)
@@ -33,18 +34,18 @@ class RegisterForm(UserCreationForm):
 
 	def clean_username(self):
 		username = self.cleaned_data.get("username")
-		qs = User.objects.filter(username__iexact=username)
+		qs = Account.objects.filter(username__iexact=username)
 		if qs.exists():
 			raise forms.ValidationError("This is an invalid username, please pick another one.")
 		return username
 
 	def clean_email(self):
 		email = self.cleaned_data.get("email")
-		qs = User.objects.filter(email__iexact=email)
+		qs = Account.objects.filter(email__iexact=email)
 		if qs.exists():
 			raise forms.ValidationError("This email is already in use.")
 		return email
 
 	class Meta(UserCreationForm.Meta):
-		model = User
+		model = Account
 		fields = ("username", "email", "password1", "password2")
