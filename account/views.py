@@ -13,7 +13,8 @@ def registration_view(request):
 			email = form.cleaned_data.get("email")
 			raw_password = form.cleaned_data.get("password")
 			account = authenticate(email=email, password=raw_password)
-			return redirect("home")
+			login(request, account)
+			return redirect("app:home")
 	else:
 		form = RegistrationForm()
 	return render(request, "account/register.html", {"form": form})
