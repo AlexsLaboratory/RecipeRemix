@@ -1,7 +1,6 @@
 from django.contrib.auth import get_user_model, login, authenticate
 from django.shortcuts import render, redirect
-
-from register.forms import RegistrationForm
+from account.forms import RegistrationForm
 
 
 # Create your views here.
