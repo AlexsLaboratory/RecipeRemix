@@ -69,11 +69,11 @@ class AccountAuthenticationForm(forms.ModelForm):
 
 	class Meta:
 		model = Account
-		fields = ('email', 'password')
+		fields = ("email", "password")
 
 	def clean(self):
 		if self.is_valid():
-			email = self.cleaned_data.get('email')
-			password = self.cleaned_data.get('password')
+			email = self.cleaned_data.get("email")
+			password = self.cleaned_data.get("password")
 			if not authenticate(email=email, password=password):
-				raise forms.ValidationError('Invalid login')
+				raise forms.ValidationError("Invalid login")

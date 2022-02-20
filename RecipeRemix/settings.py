@@ -19,13 +19,13 @@ env = environ.Env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-=ffa5vble(d!%87-2u_td(c*0ks4p9+&&90tss)^z04c2d$z!0'
+SECRET_KEY = "django-insecure-=ffa5vble(d!%87-2u_td(c*0ks4p9+&&90tss)^z04c2d$z!0"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -34,23 +34,23 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
 	# My apps
-	'app.apps.AppConfig',
-	'account',
+	"app.apps.AppConfig",
+	"account",
 
 	# Django apps
-	'django.contrib.admin',
-	'django.contrib.auth',
-	'django.contrib.contenttypes',
-	'django.contrib.sessions',
-	'django.contrib.messages',
-	'django.contrib.staticfiles',
+	"django.contrib.admin",
+	"django.contrib.auth",
+	"django.contrib.contenttypes",
+	"django.contrib.sessions",
+	"django.contrib.messages",
+	"django.contrib.staticfiles",
 ]
 # Application definition
 
 
 MIDDLEWARE = [
-	'django.middleware.security.SecurityMiddleware',
-	'django.contrib.sessions.middleware.SessionMiddleware',
+	"django.middleware.security.SecurityMiddleware",
+	"django.contrib.sessions.middleware.SessionMiddleware",
 	'django.middleware.common.CommonMiddleware',
 	'django.middleware.csrf.CsrfViewMiddleware',
 	'django.contrib.auth.middleware.AuthenticationMiddleware',
