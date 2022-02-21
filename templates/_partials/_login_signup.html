@@ -1,6 +1,6 @@
 <div class="p-2 account-background">
     <div class="container-sm border form-background-fill">
-        <form class="container flex-nowrap" action="{% url 'account:register' %}" method="post">
+        <form class="container flex-nowrap" action="{% url form_submit_path %}" method="post">
             {% csrf_token %}
             {% for field in form %}
                 <div class="row">

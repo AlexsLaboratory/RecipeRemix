@@ -10,26 +10,26 @@ class RegistrationForm(UserCreationForm):
 	username = forms.CharField(
 		label="Username",
 		widget=forms.TextInput(
-			attrs={"class": "form-control", "name": "username"}
+			attrs={"class": "form-control"}
 		)
 	)
 	email = forms.EmailField(
 		label="Email",
 		max_length=60,
 		widget=forms.EmailInput(
-			attrs={"class": "form-control", "name": "email"}
+			attrs={"class": "form-control"}
 		)
 	)
 	password1 = forms.CharField(
 		label="Password",
 		widget=forms.PasswordInput(
-			attrs={"class": "form-control", "name": "password"}
+			attrs={"class": "form-control"}
 		)
 	)
 	password2 = forms.CharField(
 		label="Password Confirm",
 		widget=forms.PasswordInput(
-			attrs={"class": "form-control", "name": "password-confirm"}
+			attrs={"class": "form-control"}
 		)
 	)
 
