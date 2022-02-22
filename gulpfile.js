@@ -20,7 +20,7 @@ async function buildStyles() {
         grid: false
       })]))
       .pipe(sourceMaps.write("."))
-      .pipe(gulp.dest("app/static/css"))
+      .pipe(gulp.dest("./app/static/css"))
 }
 
 exports.buildStyles = buildStyles;
