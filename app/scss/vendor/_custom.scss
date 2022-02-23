@@ -18,3 +18,12 @@
 .btn-primary--custom {
   width: 50%;
 }
+
+.btn-account-action a {
+  text-decoration: none;
+  color: white;
+}
+
+.btn-outline-light.btn-account-action:hover a {
+  color: black;
+}
