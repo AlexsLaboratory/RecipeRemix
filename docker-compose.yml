@@ -1,30 +1,32 @@
 version: '3.7'
 services:
-  nginx:
-    container_name: dev_web
-    restart: on-failure
-    image: nginx:1.21.6
+  app:
+    container_name: dev_app
+    build:
+      context: ./
+      dockerfile: ./docker/app/Dockerfile
+    restart: always
+    env_file: .env
     volumes:
-      - ./docker/nginx/prod/nginx.conf:/etc/nginx/conf.d/default.conf
-      - static_volume:/app/static
+      - .:/app
+      - static_volume:/vol/app
+      - socket:/recipe_remix.sock
+    depends_on:
+      - db
+      - gulp
+  proxy:
+    container_name: dev_proxy
+    restart: on-failure
+    build:
+      context: ./
+      dockerfile: ./docker/proxy/Dockerfile
+    volumes:
+      - static_volume:/vol/static
+      - socket:/recipe_remix.sock
     ports:
       - "80:80"
     depends_on:
-      - web
-  web:
-    container_name: dev_backend
-    build:
-      context: ./
-      dockerfile: ./docker/web/Dockerfile
-    restart: always
-    env_file: .env
-    command: gunicorn RecipeRemix.wsgi:application --bind 0.0.0.0:5000
-    volumes:
-     - .:/app
-     - static_volume:/app/static
-    depends_on:
-     - db
-     - gulp
+      - app
   db:
     container_name: dev_db
     image: postgres:14-alpine

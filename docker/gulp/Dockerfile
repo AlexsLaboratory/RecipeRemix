@@ -1,7 +1,7 @@
 FROM node:17
 WORKDIR /app
-COPY package*.json ./
-COPY gulpfile.js ./
+COPY package*.json /
+COPY gulpfile.js /
 RUN npm install
 RUN npm install -g gulp-cli
-COPY . .
+COPY ./app/scss ./scss
