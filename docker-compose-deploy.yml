@@ -2,18 +2,29 @@ version: '3.7'
 services:
   app:
     container_name: dev_app
-    restart: on-failure
     build:
       context: ./
       dockerfile: ./docker/app/Dockerfile
-    command: sh -c "python manage.py runserver 0.0.0.0:8000"
     env_file: .env
-    ports:
-      - "8000:8000"
     volumes:
-      - .:/app
+      - static_volume:/vol/web
+      - socket_dir:/var/run
     depends_on:
+      - gulp
       - db
+  proxy:
+    container_name: dev_proxy
+    restart: on-failure
+    build:
+      context: ./
+      dockerfile: ./docker/proxy/Dockerfile
+    volumes:
+      - static_volume:/vol/static
+      - socket_dir:/var/run
+    ports:
+      - "80:80"
+    depends_on:
+      - app
       - gulp
   db:
     container_name: dev_db
@@ -27,9 +38,12 @@ services:
     build:
       context: ./
       dockerfile: ./docker/gulp/Dockerfile
-    command: gulp watch
+    command: gulp buildStyles
+    restart: "no"
     volumes:
-      - .:/app
+      - static_volume:/app/static
 
 volumes:
+  static_volume:
   postgres_data:
+  socket_dir:
