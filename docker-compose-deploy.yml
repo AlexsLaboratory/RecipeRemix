@@ -21,8 +21,11 @@ services:
     volumes:
       - static_volume:/vol/static
       - socket_dir:/var/run
+      - certbot_www:/var/www/certbot/:ro
+      - certbot_config:/etc/nginx/ssl/:ro
     ports:
       - "80:80"
+      - "443:443"
     depends_on:
       - app
       - gulp
@@ -42,8 +45,16 @@ services:
     restart: "no"
     volumes:
       - static_volume:/app/static
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - certbot_www:/var/www/certbot/:rw
+      - certbot_config:/etc/letsencrypt/:rw
+
 
 volumes:
   static_volume:
   postgres_data:
   socket_dir:
+  certbot_www:
+  certbot_config:
