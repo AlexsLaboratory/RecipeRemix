@@ -14,7 +14,10 @@ import environ
 import os
 from pathlib import Path
 
-env = environ.Env()
+env = environ.Env(
+    DEBUG=(bool, False),
+    SECRET_KEY=(str, "django-insecure-=ffa5vble(d!%87-2u_td(c*0ks4p9+&&90tss)^z04c2d$z!0")
+)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,10 +28,10 @@ environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-=ffa5vble(d!%87-2u_td(c*0ks4p9+&&90tss)^z04c2d$z!0"
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env("DEBUG")
 
 ALLOWED_HOSTS = []
 
@@ -128,9 +131,6 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = [
-	os.path.join(BASE_DIR, 'app/static/')
-]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
