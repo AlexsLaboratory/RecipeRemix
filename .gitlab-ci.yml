@@ -4,12 +4,12 @@ services:
     - docker:dind
 
 stages:
-    - test
+    - app-deploy
 
-test:
-    stage: test
+app-deploy:
+    stage: app-deploy
     only:
-        - feature/docker-deploy-certbot
+        - develop
     before_script:
         - chmod +x ./docker/scripts/setup_env.sh
         - ./docker/scripts/setup_env.sh
