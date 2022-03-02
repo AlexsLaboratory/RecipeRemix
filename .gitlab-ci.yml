@@ -10,6 +10,9 @@ test:
     stage: test
     only:
         - feature/docker-deploy-certbot
+    before_script:
+        - chmod +x ./docker/scripts/setup_env.sh
+        - ./docker/scripts/setup_env.sh
     script:
         - docker-compose --version
         - docker-compose -f docker-compose-deploy.yml up -d --build
