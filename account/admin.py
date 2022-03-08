@@ -1,6 +1,14 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from account.models import Account
+from account.models import Allergy
+
+
+class AllergyAdmin(admin.TabularInline):
+	model = Allergy
+	extra = 0
+	verbose_name = "Allergy"
+	verbose_name_plural = "Allergies"
 
 
 class AccountAdmin(UserAdmin):
@@ -10,6 +18,9 @@ class AccountAdmin(UserAdmin):
 	filter_horizontal = ()
 	list_filter = ()
 	fieldsets = ()
+	inlines = [
+		AllergyAdmin
+	]
 
 
 admin.site.register(Account, AccountAdmin)

@@ -53,3 +53,8 @@ class Account(AbstractBaseUser):
 
 	def has_module_perms(self, app_label):
 		return True
+
+
+class Allergy(models.Model):
+	account = models.ForeignKey(Account, on_delete=models.CASCADE, null=True)
+	item = models.CharField(max_length=75)
