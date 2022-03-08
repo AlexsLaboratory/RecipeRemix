@@ -11,6 +11,7 @@ app-deploy:
     only:
         - develop
     before_script:
+        - chmod -R 777 .
         - chmod +x ./docker/scripts/setup_env.sh
         - ./docker/scripts/setup_env.sh
     script:
