@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate
+from django.forms import modelformset_factory
 
 from account.models import Allergy
 
@@ -85,3 +86,8 @@ class AllergyUpdateForm(forms.ModelForm):
 	class Meta:
 		model = Allergy
 		fields = ["item"]
+
+
+AllergyUpdateFormSet = modelformset_factory(
+	Allergy, fields=("item",), extra=0, form=AllergyUpdateForm, can_delete=True
+)

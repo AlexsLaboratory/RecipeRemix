@@ -5,7 +5,15 @@
 {% block body %}
     <form action="{% url "account:profile" %}" method="post">
         {% csrf_token %}
-        {{ form }}
+        <h3>Items</h3>
+        {{ formset.management_form }}
+        <div id="allergy-form-list">
+            {% for form in formset %}
+                <div class="allergy-form">
+                    {{ form.as_p }}
+                </div>
+            {% endfor %}
+        </div>
         <button type="submit">Submit</button>
     </form>
 
