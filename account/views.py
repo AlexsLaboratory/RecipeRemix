@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model, login, authenticate, logout
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from account.forms import RegistrationForm, AccountAuthenticationForm
+from account.forms import RegistrationForm, AccountAuthenticationForm, AllergyUpdateForm
 
 
 # Create your views here.
@@ -49,3 +50,19 @@ def login_view(request):
 
 	context["form"] = form
 	return render(request, "account/login.html", context)
+
+
+@login_required
+def update_profile_view(request):
+	context = {}
+	if request.POST:
+		form = AllergyUpdateForm(request.POST)
+		if form.is_valid():
+			instance = form.save(commit=False)
+			instance.account = request.user
+			instance.save()
+	else:
+		form = AllergyUpdateForm()
+	context["form"] = form
+
+	return render(request, "account/profile.html", context)

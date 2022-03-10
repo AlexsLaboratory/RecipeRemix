@@ -1,0 +1,12 @@
+{% extends "_partials/_base.html" %}
+{% block title %}
+    Recipe Remix | Profile
+{% endblock title %}
+{% block body %}
+    <form action="{% url "account:profile" %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Submit</button>
+    </form>
+
+{% endblock body %}

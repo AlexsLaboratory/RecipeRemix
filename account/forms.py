@@ -3,6 +3,8 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate
 
+from account.models import Allergy
+
 Account = get_user_model()
 
 
@@ -77,3 +79,9 @@ class AccountAuthenticationForm(forms.ModelForm):
 			password = self.cleaned_data.get("password")
 			if not authenticate(email=email, password=password):
 				raise forms.ValidationError("Invalid login")
+
+
+class AllergyUpdateForm(forms.ModelForm):
+	class Meta:
+		model = Allergy
+		fields = ["item"]
