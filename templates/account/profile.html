@@ -1,4 +1,5 @@
 {% extends "_partials/_base.html" %}
+{% load static %}
 {% block title %}
     Recipe Remix | Profile
 {% endblock title %}
@@ -7,14 +8,29 @@
         {% csrf_token %}
         <h3>Items</h3>
         {{ formset.management_form }}
-        <div id="allergy-form-list">
-            {% for form in formset %}
-                <div class="allergy-form">
-                    {{ form.as_p }}
-                </div>
-            {% endfor %}
-        </div>
+        {% if formset %}
+            <div id="allergy-form-list">
+                {% for form in formset %}
+                    <div class="allergy-form">
+                        <label for="{{ form.item.id_for_label }}">Allergy</label>
+                        {{ form.item }}
+                        <label for="{{ form.DELETE.id_for_label }}">{{ form.DELETE.label }}</label>
+                        {{ form.DELETE }}
+                        {{ form.id }}
+                    </div>
+                {% endfor %}
+            </div>
+            <button id="add-more" type="button">Add more</button>
+            <button id="remove-empty" type="button">Remove empty</button>
+            <div id="empty-form" class="hidden">
+                <label for="{{ formset.empty_form.item.id_for_label }}">Allergy</label>
+                {{ formset.empty_form.item }}
+                <label for="{{ formset.empty_form.DELETE.id_for_label }}">{{ formset.empty_form.DELETE.label }}</label>
+                {{ formset.empty_form.DELETE }}
+                {{ formset.empty_form.id }}
+            </div>
+        {% endif %}
         <button type="submit">Submit</button>
     </form>
-
+    <script src="{% static "js/add-allergy.js" %}"></script>
 {% endblock body %}

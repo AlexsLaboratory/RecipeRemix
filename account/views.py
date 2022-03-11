@@ -64,4 +64,5 @@ def update_profile_view(request):
 				child = form.save(commit=False)
 				child.account = request.user
 				child.save()
+		return redirect("app:home")
 	return render(request, "account/profile.html", {"formset": formset})

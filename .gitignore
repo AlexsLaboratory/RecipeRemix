@@ -228,7 +228,6 @@ cython_debug/
 # Custom
 css/
 node_modules
-static/
 
 # Just Mac Things
 **/.DS_Store
