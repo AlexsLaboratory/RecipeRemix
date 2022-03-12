@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate
-from django.forms import modelformset_factory
+from django.forms import modelformset_factory, BaseFormSet, CheckboxInput
 
 from account.models import Allergy
 
@@ -83,6 +83,13 @@ class AccountAuthenticationForm(forms.ModelForm):
 
 
 class AllergyUpdateForm(forms.ModelForm):
+	item = forms.CharField(
+		label="Allergy",
+		widget=forms.TextInput(
+			attrs={"class": "form-control"}
+		)
+	)
+
 	class Meta:
 		model = Allergy
 		fields = ["item"]
