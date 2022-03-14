@@ -13,7 +13,7 @@ async function buildStyles() {
       .pipe(sass().on('error', sass.logError))
       .pipe(sourceMaps.init())
       .pipe(sass({
-        outputStyle: "expanded"
+        outputStyle: "compressed"
       }))
       .pipe(postCSS([autoPrefixer({
         cascade: false,
@@ -25,5 +25,5 @@ async function buildStyles() {
 
 exports.buildStyles = buildStyles;
 exports.watch = function () {
-  gulp.watch('./app/scss/**/*.scss', { ignoreInitial: false }, exports.buildStyles);
+  gulp.watch('./app/scss/**/*.scss', {ignoreInitial: false}, exports.buildStyles);
 };
