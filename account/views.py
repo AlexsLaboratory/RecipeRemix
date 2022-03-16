@@ -55,7 +55,8 @@ def login_view(request):
 
 @login_required
 def update_profile_view(request):
-	formset = AllergyUpdateFormSet(request.POST or None, queryset=Allergy.objects.all())
+	formset = AllergyUpdateFormSet(request.POST or None, queryset=Allergy.objects.all().filter(
+		account_id__exact=request.user.pk))
 	if formset.is_valid():
 		if formset.deleted_forms:
 			formset.save()
