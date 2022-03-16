@@ -15,8 +15,8 @@ import os
 from pathlib import Path
 
 env = environ.Env(
-    DEBUG=(bool, False),
-    SECRET_KEY=(str, "django-insecure-=ffa5vble(d!%87-2u_td(c*0ks4p9+&&90tss)^z04c2d$z!0")
+	DEBUG=(bool, False),
+	SECRET_KEY=(str, "django-insecure-=ffa5vble(d!%87-2u_td(c*0ks4p9+&&90tss)^z04c2d$z!0")
 )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.

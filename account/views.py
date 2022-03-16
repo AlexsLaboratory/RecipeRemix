@@ -1,69 +1,88 @@
 from django.contrib.auth import get_user_model, login, authenticate, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+from django.views import View
+from django.views.generic import FormView, CreateView
+from django.views.generic.detail import SingleObjectMixin
+
 from account.forms import RegistrationForm, AccountAuthenticationForm, AllergyUpdateForm, \
 	AllergyUpdateFormSet
 from account.models import Allergy
 
 
-def registration_view(request):
-	context = {}
-	if request.POST:
-		form = RegistrationForm(request.POST)
-		if form.is_valid():
-			form.save()
-			email = form.cleaned_data.get("email")
-			raw_password = form.cleaned_data.get("password1")
-			account = authenticate(email=email, password=raw_password)
-			login(request, account)
-			return redirect("app:home")
-		else:
-			context["form"] = form
-	else:
-		context["form"] = RegistrationForm()
-	return render(request, "account/register.html", context)
+class RegistrationFormView(FormView):
+	form_class = RegistrationForm
+	template_name = "account/register.html"
+	success_url = reverse_lazy("app:home")
+
+	def form_valid(self, form):
+		form.save()
+		email = form.cleaned_data.get("email")
+		raw_password = form.cleaned_data.get("password1")
+		account = authenticate(email=email, password=raw_password)
+		login(self.request, account)
+		return super().form_valid(form)
 
 
-def logout_view(request):
-	logout(request)
-	return redirect("app:home")
-
-
-def login_view(request):
-	context = {}
-
-	user = request.user
-	if user.is_authenticated:
+class LogoutView(View):
+	def get(self, request):
+		logout(request)
 		return redirect("app:home")
 
-	if request.POST:
-		form = AccountAuthenticationForm(request.POST)
-		if form.is_valid():
-			email = form.cleaned_data.get("email")
-			password = form.cleaned_data.get("password")
-			user = authenticate(email=email, password=password)
 
-			if user:
-				login(request, user)
-				return redirect("app:home")
-	else:
-		form = AccountAuthenticationForm()
+class LoginFormView(FormView):
+	form_class = AccountAuthenticationForm
+	template_name = "account/login.html"
+	success_url = reverse_lazy("app:home")
 
-	context["form"] = form
-	return render(request, "account/login.html", context)
+	def form_valid(self, form):
+		email = form.cleaned_data.get("email")
+		password = form.cleaned_data.get("password")
+		user = authenticate(email=email, password=password)
+
+		if user:
+			login(self.request, user)
+			return redirect("app:home")
+
+		return super().form_valid(form)
 
 
-@login_required
-def update_profile_view(request):
-	formset = AllergyUpdateFormSet(request.POST or None, queryset=Allergy.objects.all().filter(
-		account_id__exact=request.user.pk))
-	if formset.is_valid():
+class UpdateProfileFormView(LoginRequiredMixin, CreateView):
+	model = Allergy
+	template_name = "account/profile.html"
+	context_object_name = "formset"
+	form_class = AllergyUpdateForm
+	success_url = reverse_lazy("app:home")
+
+	def post(self, request, *args, **kwargs):
+		self.object = None
+		formset = AllergyUpdateFormSet(request.POST)
+		if formset.is_valid():
+			return self.form_valid(formset)
+		else:
+			return self.form_invalid(formset)
+
+	def get(self, request, *args, **kwargs):
+		self.object = None
+		allergy_form = AllergyUpdateFormSet(
+			queryset=Allergy.objects.all().filter(account_id__exact=request.user.pk)
+		)
+		return self.render_to_response(self.get_context_data(formset=allergy_form))
+
+	def form_valid(self, formset):
 		if formset.deleted_forms:
 			formset.save()
 		else:
 			for form in formset:
 				child = form.save(commit=False)
-				child.account = request.user
+				child.account = self.request.user
 				child.save()
 		return redirect("app:home")
-	return render(request, "account/profile.html", {"formset": formset})
+
+	def form_invalid(self, formset):
+		return self.render_to_response(
+			self.get_context_data(formset=formset)
+		)
