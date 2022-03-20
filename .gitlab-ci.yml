@@ -4,10 +4,11 @@ services:
     - docker:dind
 
 stages:
-    - app-deploy
-
-app-deploy:
-    stage: app-deploy
+    - build
+    - test
+    - deploy
+build:
+    stage: build
     only:
         - develop
     before_script:
@@ -15,7 +16,28 @@ app-deploy:
         - chmod +x ./docker/scripts/setup_env.sh
         - ./docker/scripts/setup_env.sh
     script:
-        - docker-compose --version
-        - docker-compose -f docker-compose-deploy.yml up -d --build
+        - docker-compose -f docker-compose-deploy.yml build --force-rm
+
+test:
+    stage: test
+    only:
+        - develop
+    before_script:
+        - chmod -R 777 .
+        - chmod +x ./docker/scripts/setup_env.sh
+        - ./docker/scripts/setup_env.sh
+    script:
+        - docker-compose -f docker-compose-deploy.yml run app python manage.py test account.tests --no-input
+
+deploy:
+    stage: deploy
+    only:
+        - develop
+    before_script:
+        - chmod -R 777 .
+        - chmod +x ./docker/scripts/setup_env.sh
+        - ./docker/scripts/setup_env.sh
+    script:
+        - docker-compose -f docker-compose-deploy.yml up -d
 
 
