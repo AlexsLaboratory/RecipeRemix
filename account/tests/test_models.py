@@ -17,7 +17,7 @@ class AccountTestCase(TestCase):
 
 	def testAccountExists(self):
 		user_email = get_user_model().objects.get(email="test@recipe-remix.tech").email
-		self.assertEqual(user_email, "test@recipe-remix.tec")
+		self.assertEqual(user_email, "test@recipe-remix.tech")
 
 	def tearDown(self):
 		self.u1.delete()
