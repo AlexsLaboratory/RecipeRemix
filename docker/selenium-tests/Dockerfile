@@ -5,5 +5,5 @@ COPY ./app/tests/selenium ./app
 COPY ./docker/selenium-tests/pytest.ini ./
 RUN apk add --update --no-cache --virtual .tmp gcc python3-dev libc-dev libffi-dev linux-headers
 RUN pip install --upgrade pip
-RUN pip install --no-cache-dir selenium~=4.1.3 pytest~=7.1.1
+RUN pip install --no-cache-dir -r requirements.txt
 RUN apk del .tmp

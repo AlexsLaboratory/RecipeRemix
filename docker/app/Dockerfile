@@ -5,7 +5,7 @@ WORKDIR /app
 COPY . .
 COPY ./requirements.txt requirements.txt
 COPY ./docker/app/uwsgi.ini /uwsgi.ini
-RUN apk add --update --no-cache --virtual .tmp postgresql-dev gcc python3-dev libc-dev linux-headers
+RUN apk add --update --no-cache --virtual .tmp postgresql-dev gcc python3-dev libc-dev libffi-dev linux-headers
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 RUN pip install --no-cache-dir uWSGI==2.0.20
