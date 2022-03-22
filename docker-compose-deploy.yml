@@ -93,6 +93,10 @@ services:
         build:
             context: ./
             dockerfile: ./docker/selenium-tests/Dockerfile
+        depends_on:
+            - app
+            - proxy
+            - selenium-hub
 
 volumes:
     static_volume:

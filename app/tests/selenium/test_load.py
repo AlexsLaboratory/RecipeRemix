@@ -1,6 +1,8 @@
+import pytest
 from selenium import webdriver
 
 
+@pytest.mark.frontend
 class TestTitle:
 	def setup_method(self):
 		self.driver = webdriver.Remote(command_executor='http://selenium-hub:4444/wd/hub',

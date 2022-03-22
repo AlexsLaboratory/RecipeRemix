@@ -28,7 +28,7 @@ backend-test:
         - chmod +x ./docker/scripts/setup_env.sh
         - ./docker/scripts/setup_env.sh
     script:
-        - docker-compose -f docker-compose-deploy.yml run app pytest -k TestAccount
+        - docker-compose -f docker-compose-deploy.yml run app pytest -m backend
 
 deploy:
     stage: deploy
@@ -50,5 +50,5 @@ frontend-test:
         - chmod +x ./docker/scripts/setup_env.sh
         - ./docker/scripts/setup_env.sh
     script:
-        - docker-compose -f docker-compose-deploy.yml run selenium-runner pytest -k TestTitle
+        - docker-compose -f docker-compose-deploy.yml run selenium-runner pytest -m frontend
 

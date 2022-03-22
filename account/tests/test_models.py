@@ -2,6 +2,7 @@ import pytest
 from django.contrib.auth import get_user_model
 
 
+@pytest.mark.backend
 @pytest.mark.django_db(serialized_rollback=True)
 class TestAccount:
 
