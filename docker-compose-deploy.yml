@@ -1,60 +1,102 @@
 version: '3.7'
 services:
-  app:
-    container_name: dev_app
-    build:
-      context: ./
-      dockerfile: ./docker/app/Dockerfile
-    env_file: .env
-    volumes:
-      - static_volume:/app/static
-      - socket_dir:/var/run
-    depends_on:
-      - gulp
-      - db
-  proxy:
-    container_name: dev_proxy
-    restart: on-failure
-    build:
-      context: ./
-      dockerfile: ./docker/proxy/Dockerfile
-    volumes:
-      - static_volume:/vol/static
-      - socket_dir:/var/run
-      - certbot_www:/vol/certbot:ro
-      - certbot_conf:/etc/nginx/ssl/:ro
-    ports:
-      - "80:80"
-      - "443:443"
-    depends_on:
-      - app
-      - gulp
-  db:
-    container_name: dev_db
-    image: postgres:14-alpine
-    restart: on-failure
-    env_file: .env
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/
-  gulp:
-    container_name: dev_gulp
-    build:
-      context: ./
-      dockerfile: ./docker/gulp/Dockerfile
-    command: gulp buildStyles
-    restart: "no"
-    volumes:
-      - static_volume:/app/static
-  certbot:
-    image: certbot/certbot:latest
-    container_name: dev_certbot
-    volumes:
-      - certbot_www:/var/www/certbot/:rw
-      - certbot_conf:/etc/letsencrypt/:rw
+    app:
+        container_name: dev_app
+        build:
+            context: ./
+            dockerfile: ./docker/app/Dockerfile
+        env_file: .env
+        volumes:
+            - static_volume:/app/static
+            - socket_dir:/var/run
+        depends_on:
+            - gulp
+            - db
+    proxy:
+        container_name: dev_proxy
+        restart: on-failure
+        build:
+            context: ./
+            dockerfile: ./docker/proxy/Dockerfile
+        volumes:
+            - static_volume:/vol/static
+            - socket_dir:/var/run
+            - certbot_www:/vol/certbot:ro
+            - certbot_conf:/etc/nginx/ssl/:ro
+        ports:
+            - "80:80"
+            - "443:443"
+        depends_on:
+            - app
+            - gulp
+    db:
+        container_name: dev_db
+        image: postgres:14-alpine
+        restart: on-failure
+        env_file: .env
+        volumes:
+            - postgres_data:/var/lib/postgresql/data/
+    gulp:
+        container_name: dev_gulp
+        build:
+            context: ./
+            dockerfile: ./docker/gulp/Dockerfile
+        command: gulp buildStyles
+        restart: "no"
+        volumes:
+            - static_volume:/app/static
+    certbot:
+        image: certbot/certbot:latest
+        container_name: dev_certbot
+        volumes:
+            - certbot_www:/var/www/certbot/:rw
+            - certbot_conf:/etc/letsencrypt/:rw
+    chrome:
+        image: selenium/node-chrome:4.1.2-20220317
+        container_name: chrome-node
+        shm_size: 2gb
+        depends_on:
+            - selenium-hub
+        environment:
+            - SE_EVENT_BUS_HOST=selenium-hub
+            - SE_EVENT_BUS_PUBLISH_PORT=4442
+            - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+    edge:
+        image: selenium/node-edge:4.1.2-20220317
+        container_name: edge-node
+        shm_size: 2gb
+        depends_on:
+            - selenium-hub
+        environment:
+            - SE_EVENT_BUS_HOST=selenium-hub
+            - SE_EVENT_BUS_PUBLISH_PORT=4442
+            - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+    firefox:
+        image: selenium/node-firefox:4.1.2-20220317
+        container_name: firefox-node
+        shm_size: 2gb
+        depends_on:
+            - selenium-hub
+        environment:
+            - SE_EVENT_BUS_HOST=selenium-hub
+            - SE_EVENT_BUS_PUBLISH_PORT=4442
+            - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+    selenium-hub:
+        image: selenium/hub:4.1.2-20220317
+        container_name: selenium-hub
+        ports:
+            - "4442:4442"
+            - "4443:4443"
+            - "4444:4444"
+    selenium-runner:
+        container_name: selenium-runner
+        build:
+            context: ./
+            dockerfile: ./docker/selenium-tests/Dockerfile
 
 volumes:
-  static_volume:
-  postgres_data:
-  socket_dir:
-  certbot_conf:
-  certbot_www:
+    static_volume:
+    postgres_data:
+    socket_dir:
+    certbot_conf:
+    certbot_www:
