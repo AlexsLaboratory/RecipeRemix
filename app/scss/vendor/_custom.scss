@@ -41,3 +41,34 @@
 .hidden {
   display: none;
 }
+
+.navbar-brand--custom {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+
+  &:hover {
+    color: white;
+  }
+
+  img {
+    height: 6rem;
+    width: auto;
+  }
+}
+
+.navbar-primary {
+  background-color: #198754;
+
+  .nav-item a {
+    text-decoration: none;
+    color: white;
+
+    &:hover {
+      color: white;
+      text-decoration: underline;
+    }
+  }
+}
