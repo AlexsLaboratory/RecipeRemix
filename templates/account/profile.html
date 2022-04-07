@@ -65,5 +65,64 @@
     <script src="{% static "js/add-allergy.js" %}"></script>
 
 
+    <div class="container-sm" style="border:3px solid #0a0a0a;>
+        <form action="{% url "account:profile" %}" method="post">
+            {% csrf_token %}
+            <h3>Pantry</h3>
+            {{ formset.management_form }}
+            {% if formset %}
+                <div id="pantryItem-form-list">
+                    {% for form in formset %}
+                        <div class="pantryItem-form row g-3">
+                            <div class="col-lg-6">
+                                <label for="{{ form.item.id_for_label }}"
+                                       class="form-label">{{ form.item.label }}</label>
+                                {{ form.item }}
+                            </div>
+                            <div class="col-sm-1 d-flex justify-content-center align-items-end">
+                                <div class="input-container">
+                                    <input type="checkbox"
+                                           class="btn-check"
+                                           name="{{ form.DELETE.html_name }}"
+                                           id="{{ form.DELETE.id_for_label }}">
+                                    <label for="{{ form.DELETE.id_for_label }}"
+                                           class="btn btn-outline-primary">{{ form.DELETE.label }}</label>
+                                </div>
+                            </div>
+                            {{ form.id }}
+                        </div>
+                    {% endfor %}
+                </div>
+                <button id="add-more" type="button" class="btn btn-secondary m-1">Add more</button>
+                <button id="remove-empty" type="button" class="btn btn-warning m-1">Remove empty</button>
+                <div id="empty-form" class="hidden">
+                    <div class="pantry-form row g-3">
+                        <div class="col">
+                            <label for="{{ formset.empty_form.item.id_for_label }}" class="form-label">Item</label>
+                            {{ formset.empty_form.item }}
+                        </div>
+                        <div class="col-sm-1 d-flex justify-content-center align-items-end">
+                            <div class="input-container">
+                                <input type="checkbox"
+                                       class="btn-check"
+                                       name="{{ formset.empty_form.DELETE.html_name }}"
+                                       id="{{ formset.empty_form.DELETE.id_for_label }}">
+                                <label for="{{ formset.empty_form.DELETE.id_for_label }}"
+                                       class="btn btn-outline-primary">{{ formset.empty_form.DELETE.label }}</label>
+                                {{ formset.empty_form.id }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            <button type="submit" class="btn btn-primary m-1">Save</button>
+        </form>
+    </div>
+    <script src="{% static "js/add-item.js" %}"></script>
+
+
+
+
+
 {% endblock body %}
 </div>
