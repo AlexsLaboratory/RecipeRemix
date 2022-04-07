@@ -4,7 +4,12 @@
     Recipe Remix | Profile
 {% endblock title %}
 {% block body %}
-    <div class="container-sm">
+{% include '_partials/_header.html' %}
+<div class="p-2 account-background">
+        <h3 style="color:black; padding: 5px; text-align:left; margin-left:170px; vertical-align:text-top;">
+        Welcome back!</h3>
+
+    <div class="container-sm" style="border:3px solid #0a0a0a;>
         <form action="{% url "account:profile" %}" method="post">
             {% csrf_token %}
             <h3>Allergies</h3>
@@ -13,12 +18,12 @@
                 <div id="allergy-form-list">
                     {% for form in formset %}
                         <div class="allergy-form row g-3">
-                            <div class="col">
+                            <div class="col-lg-6">
                                 <label for="{{ form.item.id_for_label }}"
                                        class="form-label">{{ form.item.label }}</label>
                                 {{ form.item }}
                             </div>
-                            <div class="col-sm-1 d-flex justify-content-center align-items-end">
+                            <div class="col-sm-1 d-flex justify-content-center align-items-end"  >
                                 <div class="input-container">
                                     <input type="checkbox"
                                            class="btn-check"
@@ -58,4 +63,7 @@
         </form>
     </div>
     <script src="{% static "js/add-allergy.js" %}"></script>
+
+
 {% endblock body %}
+</div>

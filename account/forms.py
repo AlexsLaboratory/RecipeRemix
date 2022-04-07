@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate
 from django.forms import modelformset_factory, BaseFormSet, CheckboxInput
 
 from account.models import Allergy
+from account.models import pantryItem
 
 Account = get_user_model()
 
@@ -97,4 +98,21 @@ class AllergyUpdateForm(forms.ModelForm):
 
 AllergyUpdateFormSet = modelformset_factory(
 	Allergy, fields=("item",), extra=0, form=AllergyUpdateForm, can_delete=True
+)
+
+class pantryItemUpdateForm(forms.ModelForm):
+	item = forms.CharField(
+		label="Pantry",
+		widget=forms.TextInput(
+			attrs={"class": "form-control"}
+		)
+	)
+
+	class Meta:
+		model = pantryItem
+		fields = ["item"]
+
+
+pantryItemUpdateFormSet = modelformset_factory(
+	pantryItem, fields=("item",), extra=0, form=pantryItemUpdateForm, can_delete=True
 )
