@@ -1,0 +1,12 @@
+{% extends "_partials/_base.html" %}
+{% load static %}
+{% block title %}
+    Recipe Remix | Search
+{% endblock title %}
+{% block body %}
+    <label for="search-input">Search</label>
+    <input type="text" id="search-input">
+    <input type="submit" id="search-submit">
+    <ul id="results"></ul>
+    <script src="{% static "js/api-search.js" %}"></script>
+{% endblock body %}
