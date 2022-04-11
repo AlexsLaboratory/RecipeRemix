@@ -4,8 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate
 from django.forms import modelformset_factory, BaseFormSet, CheckboxInput
 
-from account.models import Allergy
-from account.models import pantryItem
+from account.models import Allergy, Pantry
 
 Account = get_user_model()
 
@@ -100,7 +99,8 @@ AllergyUpdateFormSet = modelformset_factory(
 	Allergy, fields=("item",), extra=0, form=AllergyUpdateForm, can_delete=True
 )
 
-class pantryItemUpdateForm(forms.ModelForm):
+
+class PantryUpdateForm(forms.ModelForm):
 	item = forms.CharField(
 		label="Pantry",
 		widget=forms.TextInput(
@@ -109,10 +109,10 @@ class pantryItemUpdateForm(forms.ModelForm):
 	)
 
 	class Meta:
-		model = pantryItem
+		model = Pantry
 		fields = ["item"]
 
 
-pantryItemUpdateFormSet = modelformset_factory(
-	pantryItem, fields=("item",), extra=0, form=pantryItemUpdateForm, can_delete=True
+PantryUpdateFormSet = modelformset_factory(
+	Pantry, fields=("item",), extra=0, form=PantryUpdateForm, can_delete=True
 )
