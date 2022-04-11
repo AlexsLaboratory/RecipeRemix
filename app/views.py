@@ -7,3 +7,6 @@ class HomeView(TemplateView):
 
 class AboutView(TemplateView):
 	template_name = "app/about.html"
+
+class SearchView(TemplateView):
+	template_name = "account/search.html"
