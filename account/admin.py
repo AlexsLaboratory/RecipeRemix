@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from account.models import Account
 from account.models import Allergy
-from account.models import pantryItem
+from account.models import Pantry
 
 
 class AllergyAdmin(admin.TabularInline):
@@ -11,11 +11,11 @@ class AllergyAdmin(admin.TabularInline):
 	verbose_name = "Allergy"
 	verbose_name_plural = "Allergies"
 
-class pantryItemAdmin(admin.TabularInline):
-	model = pantryItem
+
+class PantryAdmin(admin.TabularInline):
+	model = Pantry
 	extra = 0
 	verbose_name = "Pantry"
-	verbose_name_plural = "pantryItems"
 
 
 class AccountAdmin(UserAdmin):
@@ -27,7 +27,7 @@ class AccountAdmin(UserAdmin):
 	fieldsets = ()
 	inlines = [
 		AllergyAdmin,
-		pantryItemAdmin
+		PantryAdmin
 	]
 
 
