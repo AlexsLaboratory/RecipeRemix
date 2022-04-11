@@ -9,8 +9,8 @@ from django.views.generic import FormView, CreateView
 from django.views.generic.detail import SingleObjectMixin
 
 from account.forms import RegistrationForm, AccountAuthenticationForm, AllergyUpdateForm, \
-	AllergyUpdateFormSet
-from account.models import Allergy
+	AllergyUpdateFormSet, PantryUpdateForm, PantryUpdateFormSet
+from account.models import Allergy, Pantry
 
 
 class RegistrationFormView(FormView):
@@ -80,7 +80,45 @@ class UpdateAllergiesFormView(LoginRequiredMixin, CreateView):
 				child = form.save(commit=False)
 				child.account = self.request.user
 				child.save()
-		return redirect("app:home")
+		return redirect("app:profile")
+
+	def form_invalid(self, formset):
+		return self.render_to_response(
+			self.get_context_data(formset=formset)
+		)
+
+
+class UpdatePantryFormView(LoginRequiredMixin, CreateView):
+	model = Pantry
+	template_name = "account/pantry.html"
+	context_object_name = "formset"
+	form_class = PantryUpdateForm
+	success_url = reverse_lazy("app:profile")
+
+	def post(self, request, *args, **kwargs):
+		self.object = None
+		formset = PantryUpdateFormSet(request.POST)
+		if formset.is_valid():
+			return self.form_valid(formset)
+		else:
+			return self.form_invalid(formset)
+
+	def get(self, request, *args, **kwargs):
+		self.object = None
+		pantry_form = PantryUpdateFormSet(
+			queryset=Pantry.objects.all().filter(account_id__exact=request.user.pk)
+		)
+		return self.render_to_response(self.get_context_data(formset=pantry_form))
+
+	def form_valid(self, formset):
+		if formset.deleted_forms:
+			formset.save()
+		else:
+			for form in formset:
+				child = form.save(commit=False)
+				child.account = self.request.user
+				child.save()
+		return redirect("app:profile")
 
 	def form_invalid(self, formset):
 		return self.render_to_response(
