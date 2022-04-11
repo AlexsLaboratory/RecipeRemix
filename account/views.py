@@ -57,6 +57,8 @@ class UpdateProfileFormView(LoginRequiredMixin, CreateView):
 	form_class = AllergyUpdateForm
 	success_url = reverse_lazy("app:home")
 
+
+
 	def post(self, request, *args, **kwargs):
 		self.object = None
 		formset = AllergyUpdateFormSet(request.POST)

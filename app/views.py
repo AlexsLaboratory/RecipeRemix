@@ -7,3 +7,6 @@ class HomeView(TemplateView):
 def about_us(request):
 	return render(request, "app/aboutUsPage.html")
 
+def faq_req(request):
+	return render(request, "app/_FAQsPage.html")
+
