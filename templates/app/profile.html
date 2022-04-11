@@ -1,0 +1,16 @@
+{% extends "_partials/_base.html" %}
+{% block title %}
+    Recipe Remix | Profile
+{% endblock title %}
+{% block body %}
+    {% include "_partials/_header.html" %}
+    <div class="grid grid--content content">
+        <h1 class="content__title">Profile</h1>
+        <div class="grid content__items grid--items">
+            <a class="grid--item" href="{% url "account:allergies" %}">
+                <h3 class="grid--item__title">Allergies</h3>
+            </a>
+        </div>
+    </div>
+{% endblock body %}
+

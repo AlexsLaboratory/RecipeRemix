@@ -1,11 +1,11 @@
 {% extends "_partials/_base.html" %}
 {% load static %}
 {% block title %}
-    Recipe Remix | Profile
+    Recipe Remix | Allergies
 {% endblock title %}
 {% block body %}
     <div class="container-sm">
-        <form action="{% url "account:profile" %}" method="post">
+        <form action="{% url "account:allergies" %}" method="post">
             {% csrf_token %}
             <h3>Allergies</h3>
             {{ formset.management_form }}

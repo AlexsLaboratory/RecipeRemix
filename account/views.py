@@ -50,9 +50,9 @@ class LoginFormView(FormView):
 		return super().form_valid(form)
 
 
-class UpdateProfileFormView(LoginRequiredMixin, CreateView):
+class UpdateAllergiesFormView(LoginRequiredMixin, CreateView):
 	model = Allergy
-	template_name = "account/profile.html"
+	template_name = "account/allergies.html"
 	context_object_name = "formset"
 	form_class = AllergyUpdateForm
 	success_url = reverse_lazy("app:home")
