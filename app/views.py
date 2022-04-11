@@ -6,13 +6,12 @@ class HomeView(TemplateView):
 
 
 class AboutView(TemplateView):
-	template_name = "app/_aboutUsTemp.html"
+	template_name = "app/about.html"
+
 
 class FaqView(TemplateView):
-	template_name = "app/_FAQsPage.html"
-
-
-
+	template_name = "app/FAQs.html"
+	
 
 class ProfileView(TemplateView):
 	template_name = "app/profile.html"
