@@ -5,10 +5,11 @@
 {% endblock title %}
 {% block body %}
     {% include '_partials/_header.html' %}
-    <div class="container-sm">
+<div class="pantry-background">
+    <div class="container-sm" style="padding-left:125px; padding-right:145px; padding-top:20px">
         <form action="{% url "account:allergies" %}" method="post">
             {% csrf_token %}
-            <h3>Allergies</h3>
+            <h3>Allergies & Diet Restrictions</h3>
             {{ formset.management_form }}
             {% if formset %}
                 <div id="allergy-form-list">
@@ -38,7 +39,7 @@
                 <div id="empty-form" class="hidden">
                     <div class="allergy-form row g-3">
                         <div class="col">
-                            <label for="{{ formset.empty_form.item.id_for_label }}" class="form-label">Allergy</label>
+                            <label for="{{ formset.empty_form.item.id_for_label }}" class="form-label">Allergy or Diet Restriction</label>
                             {{ formset.empty_form.item }}
                         </div>
                         <div class="col-sm-1 d-flex justify-content-center align-items-end">
@@ -59,4 +60,5 @@
         </form>
     </div>
     <script src="{% static "js/add-allergy.js" %}"></script>
+</div>
 {% endblock body %}

@@ -4,7 +4,9 @@
     Recipe Remix | Pantry
 {% endblock title %}
 {% block body %}
-    <div class="container-sm">
+    {% include '_partials/_header.html' %}
+<div class="pantry-background">
+    <div class="container-sm" style="padding-left:125px; padding-right:145px; padding-top:20px">
         <form action="{% url "account:pantry" %}" method="post">
             {% csrf_token %}
             <h3>Pantry</h3>
@@ -58,4 +60,6 @@
         </form>
     </div>
     <script src="{% static "js/add-pantry-item.js" %}"></script>
+
+    </div>
 {% endblock body %}
