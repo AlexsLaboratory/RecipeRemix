@@ -6,6 +6,7 @@ from django.forms import modelformset_factory, BaseFormSet, CheckboxInput
 
 from account.models import Allergy, Pantry
 
+
 Account = get_user_model()
 
 
@@ -83,16 +84,34 @@ class AccountAuthenticationForm(forms.ModelForm):
 
 
 class AllergyUpdateForm(forms.ModelForm):
+	options = (
+		("1", "Select"),
+		("2", "Dairy"),
+		("3", "Egg"),
+		("4", "Gluten"),
+		("5", "Grain"),
+		("6", "Peanut"),
+		("7", "Seafood"),
+		("8", "Sesame"),
+		("9", "Shellfish"),
+		("10", "Soy"),
+		("11", "Sulfite"),
+		("12", "Trea Nut"),
+		("13", "Wheat")
+	)
+
 	item = forms.CharField(
 		label="Allergy",
-		widget=forms.TextInput(
-			attrs={"class": "form-control"}
+		widget=forms.Select(
+			attrs={"class": "form-control"},
+			choices=options
 		)
 	)
 
 	class Meta:
 		model = Allergy
 		fields = ["item"]
+
 
 
 AllergyUpdateFormSet = modelformset_factory(
