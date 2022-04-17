@@ -8,5 +8,6 @@ urlpatterns = [
 	path("", HomeView.as_view(), name="home"),
     path("FAQs", FaqView.as_view(), name="questions"),
 	path("about", AboutView.as_view(), name="about"),
-	path("profile", ProfileView.as_view(), name="profile")
+	path("profile", ProfileView.as_view(), name="profile"),
+
 ]
