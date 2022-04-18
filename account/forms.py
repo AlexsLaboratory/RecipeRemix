@@ -1,10 +1,13 @@
+from tkinter import Widget
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate
 from django.forms import modelformset_factory, BaseFormSet, CheckboxInput
 
+
 from account.models import Allergy, Pantry
+
 
 Account = get_user_model()
 
@@ -81,14 +84,35 @@ class AccountAuthenticationForm(forms.ModelForm):
 			if not authenticate(email=email, password=password):
 				raise forms.ValidationError("Invalid login")
 
-
+# This class is a for that update allergies according to the list the api uses
 class AllergyUpdateForm(forms.ModelForm):
+	options = (
+		("1", "Select"),
+		("2", "Dairy"),
+		("3", "Egg"),
+		("4", "Gluten"),
+		("5", "Grain"),
+		("6", "Peanut"),
+		("7", "Seafood"),
+		("8", "Sesame"),
+		("9", "Shellfish"),
+		("10", "Soy"),
+		("11", "Sulfite"),
+		("12", "Trea Nut"),
+		("13", "Wheat")
+	)
+
+		
+
 	item = forms.CharField(
 		label="Allergy",
-		widget=forms.TextInput(
-			attrs={"class": "form-control"}
+		widget=forms.Select(
+			attrs={"class": "form-control"},
+			choices=options
+			)
+		
 		)
-	)
+	print(item)
 
 	class Meta:
 		model = Allergy
