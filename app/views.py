@@ -15,3 +15,7 @@ class FaqView(TemplateView):
 
 class ProfileView(TemplateView):
 	template_name = "app/profile.html"
+
+	
+class SearchView(TemplateView):
+	template_name = "account/search.html"
