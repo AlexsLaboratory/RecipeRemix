@@ -46,7 +46,6 @@ INSTALLED_APPS = [
 	"django.contrib.contenttypes",
 	"django.contrib.sessions",
 	"django.contrib.messages",
-	"django_social_share",
 	"django.contrib.staticfiles"
 
 ]
