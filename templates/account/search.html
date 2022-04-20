@@ -1,0 +1,25 @@
+{% extends "_partials/_base.html" %}
+{% load static %}
+{% block title %}
+    Recipe Remix | Search
+{% endblock title %}
+{% block body %}
+    {% include "_partials/_header.html" %}
+    <style>
+        .search_box{
+            text-align: center;
+            position: relative;
+            top: 20px;
+
+        }
+    </style>
+    <div class="p-2 account-background">
+        <div class = "search_box">
+            <h4>Recipe Search</h4>
+        <input type="text" id="search-input">
+        <input type="submit" id="search-submit">
+        <ul id="results"></ul>
+        </div>
+    </div>
+    <script src="{% static "js/api-search.js" %}"></script>
+{% endblock body %}
