@@ -9,8 +9,8 @@ from django.views.generic import FormView, CreateView
 from django.views.generic.detail import SingleObjectMixin
 
 from account.forms import RegistrationForm, AccountAuthenticationForm, AllergyUpdateForm, \
-	AllergyUpdateFormSet, PantryUpdateForm, PantryUpdateFormSet
-from account.models import Allergy, Pantry
+	AllergyUpdateFormSet, PantryUpdateForm, PantryUpdateFormSet, HistoryUpdateForm, HistoryUpdateFormSet
+from account.models import Allergy, Pantry, History
 
 
 class RegistrationFormView(FormView):
@@ -126,3 +126,42 @@ class UpdatePantryFormView(LoginRequiredMixin, CreateView):
 		return self.render_to_response(
 			self.get_context_data(formset=formset)
 		)
+
+
+class UpdateHistoryFormView(LoginRequiredMixin, CreateView):
+	model = History
+	template_name = "account/history.html"
+	context_object_name = "formset"
+	form_class = HistoryUpdateForm
+	success_url = reverse_lazy("app:profile")
+
+	def post(self, request, *args, **kwargs):
+		self.object = None
+		formset = HistoryUpdateFormSet(request.POST)
+		if formset.is_valid():
+			return self.form_valid(formset)
+		else:
+			return self.form_invalid(formset)
+
+	def get(self, request, *args, **kwargs):
+		self.object = None
+		history_form = HistoryUpdateFormSet(
+			queryset=History.objects.all().filter(account_id__exact=request.user.pk)
+		)
+		return self.render_to_response(self.get_context_data(formset=history_form))
+
+	def form_valid(self, formset):
+		if formset.deleted_forms:
+			formset.save()
+		else:
+			for form in formset:
+				child = form.save(commit=False)
+				child.account = self.request.user
+				child.save()
+		return redirect("app:profile")
+
+	def form_invalid(self, formset):
+		return self.render_to_response(
+			self.get_context_data(formset=formset)
+		)
+

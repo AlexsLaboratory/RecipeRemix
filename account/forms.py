@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate
 from django.forms import modelformset_factory, BaseFormSet, CheckboxInput
 
 
-from account.models import Allergy, Pantry
+from account.models import Allergy, Pantry, History
 
 
 Account = get_user_model()
@@ -139,4 +139,21 @@ class PantryUpdateForm(forms.ModelForm):
 
 PantryUpdateFormSet = modelformset_factory(
 	Pantry, fields=("item",), extra=0, form=PantryUpdateForm, can_delete=True
+)
+
+class HistoryUpdateForm(forms.ModelForm):
+	recipe = forms.CharField(
+		label="Recipe",
+		widget=forms.TextInput(
+			attrs={"class": "form-control"}
+		)
+	)
+
+	class Meta:
+		model = History
+		fields = ["recipe"]
+
+
+HistoryUpdateFormSet = modelformset_factory(
+	Pantry, fields=("recipe",), extra=0, form=HistoryUpdateForm, can_delete=True
 )

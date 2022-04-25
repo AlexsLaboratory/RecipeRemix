@@ -3,6 +3,7 @@ from django.contrib.auth.admin import UserAdmin
 from account.models import Account
 from account.models import Allergy
 from account.models import Pantry
+from account.models import History
 
 
 class AllergyAdmin(admin.TabularInline):
@@ -16,6 +17,11 @@ class PantryAdmin(admin.TabularInline):
 	model = Pantry
 	extra = 0
 	verbose_name = "Pantry"
+
+class HistoryAdmin(admin.TabularInline):
+	model = History
+	extra = 0
+	verbose_name = "History"
 
 
 class AccountAdmin(UserAdmin):
