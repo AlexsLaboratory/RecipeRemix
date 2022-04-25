@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import FormView, CreateView
+from django.views.generic import FormView, CreateView, TemplateView
 from django.views.generic.detail import SingleObjectMixin
 
 from account.forms import RegistrationForm, AccountAuthenticationForm, AllergyUpdateForm, \
@@ -56,8 +56,6 @@ class UpdateAllergiesFormView(LoginRequiredMixin, CreateView):
 	context_object_name = "formset"
 	form_class = AllergyUpdateForm
 	success_url = reverse_lazy("app:home")
-
-
 
 	def post(self, request, *args, **kwargs):
 		self.object = None
@@ -126,3 +124,7 @@ class UpdatePantryFormView(LoginRequiredMixin, CreateView):
 		return self.render_to_response(
 			self.get_context_data(formset=formset)
 		)
+
+
+class SearchAPIView(TemplateView):
+	template_name = "account/search.html"

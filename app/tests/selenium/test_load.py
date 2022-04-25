@@ -5,8 +5,9 @@ from selenium import webdriver
 @pytest.mark.frontend
 class TestTitle:
 	def setup_method(self):
-		self.driver = webdriver.Remote(command_executor='http://selenium-hub:4444/wd/hub',
-									   options=webdriver.ChromeOptions())
+		self.driver = webdriver.Remote(
+			command_executor='http://selenium-hub:4444/wd/hub',
+			options=webdriver.ChromeOptions())
 		self.vars = {}
 
 	def teardown_method(self):
