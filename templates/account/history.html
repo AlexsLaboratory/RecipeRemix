@@ -1,0 +1,65 @@
+{% extends "_partials/_base.html" %}
+{% load static %}
+{% block title %}
+    Recipe Remix | History
+{% endblock title %}
+{% block body %}
+    {% include '_partials/_header.html' %}
+<div class="pantry-background">
+    <div class="container-sm" style="padding-left:125px; padding-right:145px; padding-top:20px">
+        <form action="{% url "account:history" %}" method="post">
+            {% csrf_token %}
+            <h3>Saved Recipes</h3>
+            {{ formset.management_form }}
+            {% if formset %}
+                <div id="history-form-list">
+                    {% for form in formset %}
+                        <div class="history-form row g-3">
+                            <div class="col">
+                                <label for="{{ form.item.id_for_label }}"
+                                       class="form-label">{{ form.item.label }}</label>
+                                {{ form.item }}
+                            </div>
+                            <div class="col-sm-1 d-flex justify-content-center align-items-end">
+                                <div class="input-container">
+                                    <input type="checkbox"
+                                           class="btn-check"
+                                           name="{{ form.DELETE.html_name }}"
+                                           id="{{ form.DELETE.id_for_label }}">
+                                    <label for="{{ form.DELETE.id_for_label }}"
+                                           class="btn btn-outline-primary">{{ form.DELETE.label }}</label>
+                                </div>
+                            </div>
+                            {{ form.id }}
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <button id="add-more" type="button" class="btn btn-secondary m-1">Add more</button>
+                <button id="remove-empty" type="button" class="btn btn-warning m-1">Remove empty</button>
+                <div id="empty-form" class="hidden">
+                    <div class="recipe-form row g-3">
+                        <div class="col">
+                            <label for="{{ formset.empty_form.item.id_for_label }}" class="form-label">Recipe</label>
+                            {{ formset.empty_form.item }}
+                        </div>
+                        <div class="col-sm-1 d-flex justify-content-center align-items-end">
+                            <div class="input-container">
+                                <input type="checkbox"
+                                       class="btn-check"
+                                       name="{{ formset.empty_form.DELETE.html_name }}"
+                                       id="{{ formset.empty_form.DELETE.id_for_label }}">
+                                <label for="{{ formset.empty_form.DELETE.id_for_label }}"
+                                       class="btn btn-outline-primary">{{ formset.empty_form.DELETE.label }}</label>
+                                {{ formset.empty_form.id }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            <button type="submit" class="btn btn-primary m-1">Save</button>
+        </form>
+    </div>
+    <script src="{% static "js/add-recipe.js" %}"></script>
+</div>
+{% endblock body %}
