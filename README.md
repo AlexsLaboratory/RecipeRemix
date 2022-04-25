@@ -4,24 +4,14 @@ A web application that allows users to input diet restrictions, food preferences
 
 ## Setup
 ### Downloads
- - Windows
-   - [Python3.9](https://www.python.org/ftp/python/3.9.10/python-3.9.10-amd64.exe)
-   - [Nodejs](https://nodejs.org/dist/v16.13.2/node-v16.13.2-x64.msi)
- - Mac
-   - [Python3.9](https://www.python.org/ftp/python/3.9.10/python-3.9.10-macos11.pkg)
-   - [Nodejs](https://nodejs.org/dist/v16.13.2/node-v16.13.2.pkg)
- - Both
-   - [Postgres](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)
-#### Python Setup
-1. Clone repository by running `git clone <ssh/https url>`
-2. Go into the root of the project by running `cd webpage-application-recipe-remix`
-3. Run `py -m venv env` from Terminal or CMD window (if you're running a unix based system run `python -m venv env`)
-   - **Windows Users**: Run `.\env\Scripts\activate`
-   - **Mac Users**: Run `source ./env/bin/activate`
-   
-   This will create a virtual environment to separate the packages that our application requires from global packages.
-4. Run `pip install -r requirements.txt` this will install all the packages required by our project
+ - [Docker](https://www.docker.com/get-started/)
 
-#### Nodejs Setup
-1. From within the repository run `npm install` and run `npm install --global gulp-cli`
-2. Run `gulp watch`
+### Development
+We have made contributing to our project very easy because we use containers for each aspect of our application. In order to get it up and running all you have to do is run `docker-compose up -d --build` from the root of the project. Now you can go to `localhost:8000` to view the application. See that was soo easy.
+
+### Production
+This is going to be a little bit more complicated as we have Certbot which generates our SSL certificates. The issue is that Certbot adds a file to the website in the `.well-kown` directory. Within the proxy (Nginx) configureation it is going to redirect any traffic from port 80 (insecure traffic) to port 443 (secure traffic) this is the recomendated way to do things now adays. If there is no SSL certificate already created than the configuration is going to reference a file that does not exist yet and the server will not start. The issue is that the server needs to start in order to have certbot generate and verify the SSL cert. The way to get around this is to go into the `docker/proxy/default.conf` file and move lines `39-42` and replace lines `18-20`. From there comment out lines `23-43`. This will disable SSL completely and allow it to run with out failing.
+
+The final thing to do is to run and replace `DOMAINNAME.SOMETHING` with your actual domain name `docker-compose -f docker-compose-deploy.yml run --rm  certbot certonly --webroot --webroot-path /var/www/certbot/ -d DOMAINNAME.SOMETHING`. Within the `default.conf` you will also have to replace any reference to `recipe-remix.tech` with the domain of your choosing. Once that command succeeds you can go back to the first step and undo what you did in order to re-enable SSL and your site should then be fully functional.
+
+The last thing to do is run `docker-compose -f docker-compose-deploy.yml up -d --build`
