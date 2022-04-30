@@ -161,5 +161,5 @@ class HistoryUpdateForm(forms.ModelForm):
 
 
 HistoryUpdateFormSet = modelformset_factory(
-	Pantry, fields=("recipe_name", "recipe"), extra=0, form=HistoryUpdateForm, can_delete=True
+	History, fields=("recipe_name", "recipe"), extra=0, form=HistoryUpdateForm, can_delete=True
 )
