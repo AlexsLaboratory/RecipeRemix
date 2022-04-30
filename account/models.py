@@ -80,10 +80,11 @@ class Pantry(models.Model):
 
 class History(models.Model):
 	account = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, null=True)
-	recipe = models.CharField(max_length=75)
+	recipe_name = models.CharField(max_length=75, null=True)
+	recipe = models.CharField(max_length=75, null=True)
 
 	def __str__(self):
-		return f"{self.item}"
+		return f"{self.recipe_name, self.recipe}"
 
 	def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
 		super(History, self).save()

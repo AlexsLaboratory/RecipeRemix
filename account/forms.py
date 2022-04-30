@@ -142,8 +142,14 @@ PantryUpdateFormSet = modelformset_factory(
 )
 
 class HistoryUpdateForm(forms.ModelForm):
+	recipe_name = forms.CharField(
+		label="Recipe Name",
+		widget=forms.TextInput(
+			attrs={"class": "form-control"}
+		)
+	)
 	recipe = forms.CharField(
-		label="Recipe",
+		label="Recipe URL",
 		widget=forms.TextInput(
 			attrs={"class": "form-control"}
 		)
@@ -151,9 +157,9 @@ class HistoryUpdateForm(forms.ModelForm):
 
 	class Meta:
 		model = History
-		fields = ["recipe"]
+		fields = ["recipe_name", "recipe"]
 
 
 HistoryUpdateFormSet = modelformset_factory(
-	Pantry, fields=("recipe",), extra=0, form=HistoryUpdateForm, can_delete=True
+	Pantry, fields=("recipe_name", "recipe"), extra=0, form=HistoryUpdateForm, can_delete=True
 )
