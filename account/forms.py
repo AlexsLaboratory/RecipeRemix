@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import modelformset_factory
 
-from account.models import Allergy, Pantry
+from account.models import Allergy, Pantry, History
 
 Account = get_user_model()
 
@@ -96,7 +96,7 @@ class AllergyUpdateForm(forms.ModelForm):
 		("9", "Shellfish"),
 		("10", "Soy"),
 		("11", "Sulfite"),
-		("12", "Trea Nut"),
+		("12", "Tree Nut"),
 		("13", "Wheat")
 	)
 
@@ -135,4 +135,27 @@ class PantryUpdateForm(forms.ModelForm):
 
 PantryUpdateFormSet = modelformset_factory(
 	Pantry, fields=("item",), extra=0, form=PantryUpdateForm, can_delete=True
+)
+
+class HistoryUpdateForm(forms.ModelForm):
+	recipe_name = forms.CharField(
+		label="Recipe Name",
+		widget=forms.TextInput(
+			attrs={"class": "form-control"}
+		)
+	)
+	recipe = forms.CharField(
+		label="Recipe URL",
+		widget=forms.TextInput(
+			attrs={"class": "form-control"}
+		)
+	)
+
+	class Meta:
+		model = History
+		fields = ["recipe_name", "recipe"]
+
+
+HistoryUpdateFormSet = modelformset_factory(
+	History, fields=("recipe_name", "recipe"), extra=0, form=HistoryUpdateForm, can_delete=True
 )

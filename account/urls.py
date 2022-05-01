@@ -8,5 +8,6 @@ urlpatterns = [
 	path("logout", views.LogoutView.as_view(), name="logout"),
 	path("allergies", views.UpdateAllergiesFormView.as_view(), name="allergies"),
 	path("pantry", views.UpdatePantryFormView.as_view(), name="pantry"),
-	path("recipe/search", views.SearchAPIView.as_view(), name="search")
+	path("recipe/search", views.SearchAPIView.as_view(), name="search"),
+	path("history", views.UpdateHistoryFormView.as_view(), name="history"),
 ]
