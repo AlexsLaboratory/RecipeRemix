@@ -16,9 +16,14 @@
                     {% for form in formset %}
                         <div class="history-form row g-3">
                             <div class="col">
-                                <label for="{{ form.item.id_for_label }}"
-                                       class="form-label">{{ form.item.label }}</label>
-                                {{ form.item }}
+                                <label for="{{ form.recipe_name.id_for_label }}"
+                                       class="form-label">{{ form.recipe_name.label }}</label>
+                                {{ form.recipe_name }}
+                            </div>
+                            <div class="col">
+                                <label for="{{ form.recipe.id_for_label }}"
+                                       class="form-label">{{ form.recipe.label }}</label>
+                                {{ form.recipe }}
                             </div>
                             <div class="col-sm-1 d-flex justify-content-center align-items-end">
                                 <div class="input-container">
@@ -41,8 +46,12 @@
                 <div id="empty-form" class="hidden">
                     <div class="recipe-form row g-3">
                         <div class="col">
-                            <label for="{{ formset.empty_form.item.id_for_label }}" class="form-label">Recipe</label>
-                            {{ formset.empty_form.item }}
+                            <label for="{{ formset.empty_form.recipe_name.id_for_label }}" class="form-label">Recipe Name</label>
+                            {{ formset.empty_form.recipe_name }}
+                        </div>
+                        <div class="col">
+                            <label for="{{ formset.empty_form.recipe.id_for_label }}" class="form-label">Recipe URL</label>
+                            {{ formset.empty_form.recipe }}
                         </div>
                         <div class="col-sm-1 d-flex justify-content-center align-items-end">
                             <div class="input-container">
