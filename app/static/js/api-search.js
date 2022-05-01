@@ -17,7 +17,8 @@ searchSubmit.addEventListener("click", (e) => {
               .then(response => {
                 a = document.createElement("a");
                 a.href = response.sourceUrl;
-                a.textContent = element.title
+                a.textContent = element.title;
+                a.target = "_blank"
                 li = document.createElement("li");
                 li.appendChild(a);
                 ul.appendChild(li);
